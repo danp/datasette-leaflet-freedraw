@@ -99,12 +99,6 @@ def extra_body_script(request, datasette, database, table):
             config_default_bounds = config.get("default_bounds") or None
             if config_default_bounds:
                 default_bounds = json.loads(config_default_bounds)
-            else:
-                default_bounds = json.loads(
-                    """
-                    {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}
-                    """
-                )
 
         return textwrap.dedent(
             """

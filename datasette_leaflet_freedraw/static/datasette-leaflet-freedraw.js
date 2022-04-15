@@ -64,7 +64,7 @@ function configureMap(input) {
     zoom: 2,
     layers: [tiles],
   });
-  if (!input.value) {
+  if (!input.value && datasette.leaflet_freedraw.default_bounds) {
       map.fitBounds(L.geoJSON(datasette.leaflet_freedraw.default_bounds).getBounds());
   }
   let freeDraw = new FreeDraw();
