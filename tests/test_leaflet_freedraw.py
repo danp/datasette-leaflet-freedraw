@@ -65,7 +65,7 @@ async def test_extra_body_script():
         "datasette.leaflet_freedraw = {\n"
         "    FREEDRAW_URL: '/-/static-plugins/datasette-leaflet-freedraw/leaflet-freedraw.esm.js',\n"
         "    show_for_table: false,\n"
-        "    current_geojson: null\n"
+        "    current_geojson: null,\n"
         "    default_bounds: {\"type\": \"Feature\", \"properties\": {}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [0, 0]}}\n"
         "};"
     )

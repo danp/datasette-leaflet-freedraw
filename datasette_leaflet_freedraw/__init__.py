@@ -112,7 +112,7 @@ def extra_body_script(request, datasette, database, table):
         datasette.leaflet_freedraw = {{
             FREEDRAW_URL: '{}',
             show_for_table: {},
-            current_geojson: {}
+            current_geojson: {},
             default_bounds: {}
         }};
         """.format(
