@@ -90,6 +90,22 @@ def extra_body_script(request, datasette, database, table):
                 current_geojson = json.loads(freedraw)
             except ValueError:
                 pass
+        default_bounds = None
+        if current_geojson is None:
+            config = (
+                datasette.plugin_config("datasette-leaflet-freedraw", database=database, table=table)
+                or {}
+            )
+            config_default_bounds = config.get("default_bounds") or None
+            if config_default_bounds:
+                default_bounds = json.loads(config_default_bounds)
+            else:
+                default_bounds = json.loads(
+                    """
+                    {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[0,0]}}
+                    """
+                )
+
         return textwrap.dedent(
             """
         window.datasette = window.datasette || {{}};
@@ -97,6 +113,7 @@ def extra_body_script(request, datasette, database, table):
             FREEDRAW_URL: '{}',
             show_for_table: {},
             current_geojson: {}
+            default_bounds: {}
         }};
         """.format(
                 datasette.urls.static_plugins(
@@ -104,6 +121,7 @@ def extra_body_script(request, datasette, database, table):
                 ),
                 "true" if has_geometry else "false",
                 htmlsafe_json_dumps(current_geojson),
+                htmlsafe_json_dumps(default_bounds),
             )
         )
 
